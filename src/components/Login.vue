@@ -30,12 +30,13 @@
 </template>
 
 <script>
+var that;
 export default {
   data () {
     return {
       loginForm: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: 'admin'
       },
       loginFornRules: {
         username: [
@@ -57,13 +58,22 @@ export default {
       this.$refs.loginFormRef.resetFields()
     },
     toLogin: function () {
-      this.$refs.loginFormRef.validate(async valid => {
+      that = this;
+      that.$refs.loginFormRef.validate(async valid => {
         // 表单与验证
         if (!valid) {
           return
         }
-        const result = await this.$http.post('/users/api/login.do',this.$qs.stringify(this.loginForm))
-        console.log(result)
+        const result = await that.$http.post('/users/api/login.do',that.$qs.stringify(that.loginForm));
+        const {message,token} = result.data;
+        console.log(message);
+        if(message != 'ok') return that.$message.error('登录失败')
+        that.$message({
+          message:'登录成功',
+          type:'success'
+        })
+        window.sessionStorage.setItem('token',token);
+        that.$router.push('/home');
       })
     }
   }
