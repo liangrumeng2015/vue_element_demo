@@ -3,28 +3,63 @@
     <el-container class="home-container">
       <el-header>
         <div class="header_left">
-            <img src="../assets/image/avator.jpeg" alt=""/>
-            <span>后台管理系统</span>
+          <img src="../assets/image/avator.jpeg" alt />
+          <span>后台管理系统</span>
         </div>
         <el-button type="info" @click="logout">退出</el-button>
       </el-header>
       <el-container>
-        <el-aside width="200px">Aside</el-aside>
-        <el-main>Main</el-main>
+        <el-aside :width="isCollapse?'auto':'200px'">
+          <div class="toggle-btn" @click="toToggle">
+            <i class="el-icon-notebook-1"></i>切换
+          </div>
+          <el-menu
+            default-active="2"
+            class="el-menu-vertical-demo"
+            active-text-color="#409EFF"
+            :unique-opened='true'
+            :collapse = 'isCollapse'
+            :collapse-transition = 'false'
+            :router = 'true'
+          >
+
+            <el-submenu :index="item.path" v-for="(item,idx) in menuList" :key="idx"> 
+              <template slot="title">
+                <i :class="item.icon"></i>
+                <span>{{item.title}}</span>
+              </template>
+              <el-menu-item  :index="subItem.path" v-for="(subItem,subIdx) in item.children" :key="subIdx" @click="activePath(subItem.path)">
+                <i :class="subItem.icon"></i>
+                <span slot="title">{{subItem.title}}</span>
+              </el-menu-item>
+            </el-submenu>
+
+          </el-menu>
+        </el-aside>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
       </el-container>
     </el-container>
   </div>
 </template>
 <script>
 import { DURATION } from '../utils/constants'
-var that
+import menuList from '../config/menuConfig'
+var that;
 export default {
   data() {
     return {
-      msg: ''
+      msg: '',
+      menuList:menuList,   // menuConfig文件返回的
+      isCollapse:false
     }
   },
+  created(){
+    console.log(menuList);
+  },
   methods: {
+    // 退出登录
     logout() {
       that = this
       that
@@ -49,6 +84,14 @@ export default {
             message: '已取消退出'
           })
         })
+    },
+    // 展开折叠
+    toToggle(){
+      this.isCollapse = !this.isCollapse;
+    },
+    // 当前激活的菜单
+    activePath(path){
+      console.log(path)
     }
   }
 }
@@ -58,26 +101,31 @@ export default {
   height: 100%;
 }
 .home-container {
-    height: 100%;
+  height: 100%;
   .el-header {
     background: #373d41;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .header_left{
-        display: flex;
-        align-items: center;
-        color: #ffffff;
-        span{
-            padding-left: 15px;
-        }
-        img{
-            width: 40px;
-        }
+    .header_left {
+      display: flex;
+      align-items: center;
+      color: #ffffff;
+      span {
+        padding-left: 15px;
+      }
+      img {
+        width: 40px;
+      }
     }
   }
   .el-aside {
     background: #333744;
+    .toggle-btn{
+      background: #ffffff;
+      text-align: center;
+      padding:10px 0;
+    }
   }
   .el-main {
     background: #ccc;

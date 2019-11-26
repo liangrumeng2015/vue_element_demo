@@ -2,7 +2,7 @@
   <div id="login" class="login_container">
     <div class="login_box">
       <div class="avatar_box">
-        <img src="../assets/image/avator.jpeg" />
+        后台管理系统
       </div>
       <el-form
         :model="loginForm"
@@ -10,7 +10,7 @@
         ref="loginFormRef"
         label-width="0px"
         class="login_form"
-      >
+      > 
         <!-- 用户名 -->
         <el-form-item prop="username">
           <el-input v-model="loginForm.username" prefix-icon="el-icon-user"></el-input>
@@ -81,28 +81,22 @@ export default {
 
 <style lang="less" scoped>
 .login_container {
-  background: #2b4b6b;
+  background: url('../assets/image/bg.jpeg');
   height: 100%;
 }
 .login_box {
   width: 450px;
   height: 300px;
   background: #ffffff;
-  border-radius: 8px;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   .avatar_box {
-    height: 130px;
-    width: 130px;
-    border: 1px solid #eeeeee;
-    border-radius: 50%;
-    padding: 10px;
-    box-shadow: 0 0 10px #ddd;
-    background: #ffffff;
     position: absolute;
     left: 50%;
+    top: 40px;
+    font-size: 28px;
     transform: translate(-50%, -50%);
     img {
       width: 100%;
@@ -113,7 +107,7 @@ export default {
   }
   .login_form {
     position: absolute;
-    bottom: 0;
+    bottom: 24px;
     width: 100%;
     padding: 0 20px;
     box-sizing: border-box;
