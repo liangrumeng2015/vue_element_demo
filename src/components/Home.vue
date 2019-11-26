@@ -14,13 +14,13 @@
             <i class="el-icon-notebook-1"></i>切换
           </div>
           <el-menu
-            default-active="2"
             class="el-menu-vertical-demo"
             active-text-color="#409EFF"
             :unique-opened='true'
             :collapse = 'isCollapse'
             :collapse-transition = 'false'
             :router = 'true'
+            :default-active="activePath"
           >
 
             <el-submenu :index="item.path" v-for="(item,idx) in menuList" :key="idx"> 
@@ -28,7 +28,7 @@
                 <i :class="item.icon"></i>
                 <span>{{item.title}}</span>
               </template>
-              <el-menu-item  :index="subItem.path" v-for="(subItem,subIdx) in item.children" :key="subIdx" @click="activePath(subItem.path)">
+              <el-menu-item  :index="subItem.path" v-for="(subItem,subIdx) in item.children" :key="subIdx" @click="activePathFn(subItem.path)">
                 <i :class="subItem.icon"></i>
                 <span slot="title">{{subItem.title}}</span>
               </el-menu-item>
@@ -52,11 +52,13 @@ export default {
     return {
       msg: '',
       menuList:menuList,   // menuConfig文件返回的
-      isCollapse:false
+      isCollapse:false,
+      activePath:''
     }
   },
   created(){
     console.log(menuList);
+    this.activePath = window.sessionStorage.getItem('activePath');
   },
   methods: {
     // 退出登录
@@ -90,8 +92,9 @@ export default {
       this.isCollapse = !this.isCollapse;
     },
     // 当前激活的菜单
-    activePath(path){
+    activePathFn(path){
       console.log(path)
+      window.sessionStorage.setItem('activePath',path);
     }
   }
 }
@@ -128,7 +131,7 @@ export default {
     }
   }
   .el-main {
-    background: #ccc;
+    background: #efefef;
   }
 }
 </style>

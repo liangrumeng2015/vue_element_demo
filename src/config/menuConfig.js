@@ -12,7 +12,7 @@ const menuList = [{
     title: '用户管理',
     icon: 'el-icon-user',
     id: 100,
-    path: '',
+    path: '100',
     children: [{
       title: '用户列表',
       icon: 'el-icon-user',
@@ -24,7 +24,7 @@ const menuList = [{
     title: '权限管理',
     icon: 'el-icon-unlock',
     id: 200,
-    path: '',
+    path: '200',
     children: [{
         title: '角色列表',
         icon: 'el-icon-notebook-2',
@@ -43,7 +43,7 @@ const menuList = [{
     title: '商品管理',
     icon: 'el-icon-box',
     id: 300,
-    path: '',
+    path: '300',
     children: [{
         title: '商品列表',
         icon: 'el-icon-suitcase-1',
@@ -54,13 +54,13 @@ const menuList = [{
         title: '分类参数',
         icon: 'el-icon-receiving',
         id: 302,
-        path: ''
+        path: '/userslist1'
       },
       {
         title: '商品分类',
         icon: 'el-icon-collection',
         id: 303,
-        path: ''
+        path: '/userslist2'
       }
     ]
   },
@@ -68,14 +68,14 @@ const menuList = [{
     title: '订单管理',
     icon: 'el-icon-document',
     id: 400,
-    path: '',
+    path: '/orderslist',
     children: []
   },
   {
     title: '数据统计',
     icon: 'el-icon-postcard',
     id: 500,
-    path: '',
+    path: '/statislist',
     children: []
   }
 ]
