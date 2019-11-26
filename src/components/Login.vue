@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import {reqLogin} from '../api/index'
+import {DURATION} from '../utils/constants'
 var that;
 export default {
   data () {
@@ -50,8 +52,6 @@ export default {
       }
     }
   },
-  created () {
-  },
   methods: {
     //   重置按钮
     resetForm: function () {
@@ -64,12 +64,11 @@ export default {
         if (!valid) {
           return
         }
-        const result = await that.$http.post('/users/api/login.do',that.$qs.stringify(that.loginForm));
-        const {message,token} = result.data;
-        console.log(message);
+        const {message,token} = await reqLogin(that.loginForm)
         if(message != 'ok') return that.$message.error('登录失败')
         that.$message({
           message:'登录成功',
+          duration:DURATION,
           type:'success'
         })
         window.sessionStorage.setItem('token',token);
